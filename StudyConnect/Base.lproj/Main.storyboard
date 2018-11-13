@@ -57,7 +57,7 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Sign Up"/>
                                         <connections>
-                                            <segue destination="Qgb-Je-yhZ" kind="presentation" id="fCh-82-nrb"/>
+                                            <segue destination="Qgb-Je-yhZ" kind="presentation" identifier="loginToSignUp" id="fCh-82-nrb"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vy-bp-wI9">
@@ -181,29 +181,47 @@
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zcw-hX-hnX">
-                                <rect key="frame" x="117.5" y="390" width="140" height="36"/>
-                                <color key="backgroundColor" red="0.65098039220000004" green="0.82745098039999998" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="I1B-EB-9UY">
+                                <rect key="frame" x="100" y="395" width="175" height="36"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Byq-5r-5cJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="72.5" height="36"/>
+                                        <color key="backgroundColor" red="1" green="0.50980392159999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancel:" destination="Qgb-Je-yhZ" eventType="touchUpInside" id="tAV-AV-uzo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zcw-hX-hnX">
+                                        <rect key="frame" x="102.5" y="0.0" width="72.5" height="36"/>
+                                        <color key="backgroundColor" red="0.65098039220000004" green="0.82745098039999998" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Join"/>
+                                        <connections>
+                                            <action selector="signUp:" destination="Qgb-Je-yhZ" eventType="touchUpInside" id="a9l-jf-Sj5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="LxX-1a-L53"/>
+                                    <constraint firstAttribute="width" constant="175" id="Bns-tb-4Wf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Create Account"/>
-                            </button>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oOi-F1-k4P" firstAttribute="top" secondItem="i22-GT-mrL" secondAttribute="bottom" constant="25" id="3rC-IZ-kHq"/>
+                            <constraint firstItem="I1B-EB-9UY" firstAttribute="centerX" secondItem="8fg-hD-Smw" secondAttribute="centerX" id="49a-MB-elv"/>
+                            <constraint firstItem="I1B-EB-9UY" firstAttribute="top" secondItem="waD-F0-FJ4" secondAttribute="bottom" constant="30" id="6lD-Dj-Ouo"/>
                             <constraint firstItem="waD-F0-FJ4" firstAttribute="top" secondItem="oOi-F1-k4P" secondAttribute="bottom" constant="25" id="7un-0v-Qpj"/>
                             <constraint firstItem="waD-F0-FJ4" firstAttribute="centerX" secondItem="8fg-hD-Smw" secondAttribute="centerX" id="AQh-ko-hcQ"/>
-                            <constraint firstItem="Zcw-hX-hnX" firstAttribute="top" secondItem="waD-F0-FJ4" secondAttribute="bottom" constant="25" id="EcR-oJ-k6R"/>
                             <constraint firstItem="oOi-F1-k4P" firstAttribute="centerX" secondItem="8fg-hD-Smw" secondAttribute="centerX" id="Lsm-i2-sYt"/>
                             <constraint firstItem="i22-GT-mrL" firstAttribute="centerX" secondItem="8fg-hD-Smw" secondAttribute="centerX" id="bT1-JA-UyY"/>
                             <constraint firstItem="i22-GT-mrL" firstAttribute="top" secondItem="ifv-sf-Ymg" secondAttribute="bottom" constant="25" id="cyl-Gy-JpM"/>
                             <constraint firstItem="ifv-sf-Ymg" firstAttribute="top" secondItem="zqN-V1-cSa" secondAttribute="top" constant="150" id="lB4-Ox-Xr1"/>
                             <constraint firstItem="ifv-sf-Ymg" firstAttribute="centerX" secondItem="8fg-hD-Smw" secondAttribute="centerX" id="lV4-wm-zlz"/>
-                            <constraint firstItem="Zcw-hX-hnX" firstAttribute="centerX" secondItem="8fg-hD-Smw" secondAttribute="centerX" id="u0k-Sx-Jfs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zqN-V1-cSa"/>
                     </view>
