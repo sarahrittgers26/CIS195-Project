@@ -13,9 +13,10 @@ import FirebaseDatabase
 struct FirebaseUsers {
     private static let usersRef = Database.database().reference(withPath: "users")
     
+    // insert user 
     static func addUser(userID: String, firstName: String, lastName: String) {
         
-        usersRef.child(userID).setValue([firstName: firstName, lastName: lastName])
+        usersRef.child(userID).setValue(["firstName": firstName, "lastName": lastName])
         
     }
     

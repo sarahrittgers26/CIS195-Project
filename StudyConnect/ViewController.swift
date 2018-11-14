@@ -18,35 +18,30 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            
-        }
-        
-        Auth.auth().addStateDidChangeListener { auth, user in
-            if let user = user {
-                // User is signed in. Show home screen
-                self.performSegue(withIdentifier: "loginToStudy", sender: self)
-            } else {
-                // No User is signed in. Show user the login screen
-            }
-        }
+
+        // detect when sign up modal closed
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ViewController.handleModalDismissed),
+                                               name: NSNotification.Name(rawValue: "modalIsDimissed"),
+                                               object: nil)
+    }
+    
+    // fire when sign up model closes and account successfully created
+    @objc func handleModalDismissed() {
+        // segue to study
+        self.performSegue(withIdentifier: "loginToStudy", sender: self)
     }
     
  
-
+    // validate login
     @IBAction func checkLogin(_ sender: Any) {
         if let emailStr = email.text, let passwordStr = password.text {
             Auth.auth().signIn(withEmail: emailStr, password: passwordStr) { (user, error) in
                 if let user = user, error == nil {
                     
-//                    self.performSegue(withIdentifier: "loginToStudy", sender: self)
+                    self.performSegue(withIdentifier: "loginToStudy", sender: self)
                 } else {
-                    let alert = UIAlertController(title: "Error", message: "Invalid email/password", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default))
-                    
+                    let alert = Helpers.showErrorAlert(message: "Invalid email/password")
                     self.present(alert, animated: true)
                 }
             }
