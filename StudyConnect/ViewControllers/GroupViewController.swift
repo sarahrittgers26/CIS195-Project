@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var group: Group?
@@ -46,12 +47,12 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     // add members
-    func renderMembers() {
+    @objc func renderMembers() {
         // remove existing labels
         for view in self.labelStackView.subviews {
             view.removeFromSuperview()
         }
-        
+        print(self.labelStackView.subviews.count)
         guard let group = group else { return }
         FirebaseUsers.getSpecifiedUsers(toGet: group.users, callback: { (users) in
             for user in users {
@@ -78,9 +79,29 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // Actions
     @IBAction func joinGroup(_ sender: Any) {
+        guard let group = group, let user = FirebaseUsers.getCurrentUser() else { return }
+        FirebaseGroups.addMember(groupID: group.id, userID: user.uid, callback: { (bool) in
+            if bool {
+                self.reloadGroup()
+            } else {
+                // already a member
+                let alert = Helpers.showErrorAlert(message: "You are already a member")
+                self.present(alert, animated: true)
+            }
+        })
     }
     
     @IBAction func leaveGroup(_ sender: Any) {
+        guard let group = group, let user = FirebaseUsers.getCurrentUser() else { return }
+        FirebaseGroups.removeMember(groupID: group.id, userID: user.uid, callback: { (bool) in
+            if bool {
+                self.reloadGroup()
+            } else {
+                // you aren't a member
+                let alert = Helpers.showErrorAlert(message: "You are not a member of this group")
+                self.present(alert, animated: true)
+            }
+        })
     }
     
     @IBAction func deleteGroup(_ sender: Any) {

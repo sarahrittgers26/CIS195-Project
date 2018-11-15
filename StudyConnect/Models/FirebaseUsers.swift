@@ -59,6 +59,8 @@ struct FirebaseUsers {
         })
     }
     
-    
+    static func getCurrentUser() -> User? {
+        return Auth.auth().currentUser
+    }
     
 }

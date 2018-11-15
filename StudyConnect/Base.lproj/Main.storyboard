@@ -675,7 +675,6 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Leave"/>
                                         <connections>
-                                            <action selector="joinGroup:" destination="6eu-qZ-50X" eventType="touchUpInside" id="oIt-kQ-krL"/>
                                             <action selector="leaveGroup:" destination="6eu-qZ-50X" eventType="touchUpInside" id="fuf-Te-fxp"/>
                                         </connections>
                                     </button>

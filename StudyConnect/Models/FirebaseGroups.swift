@@ -101,28 +101,30 @@ struct FirebaseGroups {
     
     // get a group with specific id
     static func getGroup(groupID: String, callback: @escaping(Group) -> ()) {
-        let id = groupsRef.child(groupID).key
-        let values = groupsRef.child(groupID).value(forKey: groupID) as! NSDictionary
-        let subject = values["subject"] as! String
-        let number = values["number"] as! String
-        let professor = values["professor"] as! String
-        let sections = values["sections"] as! String
-        
-        // get all members of the group
-        var allUsers: [String] = []
-        if let dict = values.value(forKey: "users") as! NSDictionary? {
-            for (id, empty) in dict {
-                if let id = id as? String {
-                    allUsers.append(id)
+        groupsRef.child(groupID).observeSingleEvent(of: .value, with: {(snapshot) in
+            let values = snapshot.value as! NSDictionary
+            let subject = values["subject"] as! String
+            let number = values["number"] as! String
+            let professor = values["professor"] as! String
+            let sections = values["sections"] as! String
+            
+            // get all members of the group
+            var allUsers: [String] = []
+            if let dict = values.value(forKey: "users") as! NSDictionary? {
+                for (id, empty) in dict {
+                    if let id = id as? String {
+                        allUsers.append(id)
+                    }
                 }
             }
-        }
         
-        // TODO: get all events
-    
-        let group = Group(id: id ?? "", subject: subject, courseNum: number, professor: professor, sections: sections, users: allUsers, events: [])
-   
-        callback(group)
+        
+            // TODO: get all events
+        
+            let group = Group(id: groupID, subject: subject, courseNum: number, professor: professor, sections: sections, users: allUsers, events: [])
+       
+            callback(group)
+        })
 
     }
     
@@ -164,5 +166,30 @@ struct FirebaseGroups {
     static func deleteGroup(groupID: String, callback: @escaping() -> ()) {
         groupsRef.child(groupID).removeValue()
         callback()
+    }
+    
+    // add a user to the group
+    static func addMember(groupID: String, userID: String, callback: @escaping(Bool) -> ()) {
+        groupsRef.child(groupID).child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                callback(false)
+            } else {
+                groupsRef.child("\(groupID)/users/\(userID)").setValue("")
+                callback(true)
+            }
+        })
+    }
+    
+    // remove user from group
+    static func removeMember(groupID: String, userID: String, callback: @escaping(Bool) -> ()) {
+        groupsRef.child(groupID).child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            if !snapshot.hasChild(userID) {
+                // they aren't a member
+                callback(false)
+            } else {
+                groupsRef.child(groupID).child("users").child(userID).removeValue()
+                callback(true)
+            }
+        })
     }
 }
