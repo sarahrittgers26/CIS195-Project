@@ -44,7 +44,7 @@ class SignUpViewController: UIViewController {
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 if let user = authResult?.user {
                     // add user data to firebase
-                    FirebaseUsers.addUser(userID: user.uid, firstName: firstName, lastName: lastName)
+                    FirebaseUsers.addUser(userID: user.uid, firstName: firstName, lastName: lastName, email: email)
                     // dismiss modal and let parent vc know that sign up was successful
                     self.dismiss(animated: true, completion: {NotificationCenter.default.post(name: NSNotification.Name(rawValue: "modalIsDimissed"), object: nil)})
                 } else {

@@ -18,12 +18,27 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        
+        // TODO: remove
+//        do {
+//            try Auth.auth().signOut()
+//        } catch {
+//            
+//        }
+        
         // detect when sign up modal closed
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(ViewController.handleModalDismissed),
                                                name: NSNotification.Name(rawValue: "modalIsDimissed"),
                                                object: nil)
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if (Auth.auth().currentUser != nil) {
+            self.performSegue(withIdentifier: "loginToStudy", sender: self)
+        }
     }
     
     // fire when sign up model closes and account successfully created

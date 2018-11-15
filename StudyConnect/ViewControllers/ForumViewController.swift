@@ -1,21 +1,26 @@
 //
-//  StudyGroupViewController.swift
+//  ForumTableViewController.swift
 //  StudyConnect
 //
-//  Created by Sarah Rittgers on 11/12/18.
+//  Created by Sarah Rittgers on 11/14/18.
 //  Copyright © 2018 Sarah Rittgers. All rights reserved.
 //
 
 import UIKit
 
-class StudyGroupViewController: UIViewController {
+class ForumViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
+
+
 
     /*
     // MARK: - Navigation

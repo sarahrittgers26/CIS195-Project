@@ -14,10 +14,50 @@ struct FirebaseUsers {
     private static let usersRef = Database.database().reference(withPath: "users")
     
     // insert user 
-    static func addUser(userID: String, firstName: String, lastName: String) {
+    static func addUser(userID: String, firstName: String, lastName: String, email: String) {
         
-        usersRef.child(userID).setValue(["firstName": firstName, "lastName": lastName])
+        usersRef.child(userID).setValue(["firstName": firstName, "lastName": lastName, "email": email])
         
     }
+    
+    static func getAllUsers(callback: @escaping([Users]) -> ()) {
+        usersRef.observeSingleEvent(of: .value, with: {(snapshot) in
+            var allUsers: [Users] = []
+            for case let userSnapshot as DataSnapshot in snapshot.children {
+                let id = userSnapshot.key
+                let values = userSnapshot.value as! [String: Any]
+                let firstName = values["firstName"] as! String
+                let lastName = values["lastName"] as! String
+                let email = values["email"] as! String
+                
+                let user = Users(id: id, firstName: firstName, lastName: lastName, email: email)
+                allUsers.append(user)
+            }
+            callback(allUsers)
+        })
+    }
+    
+    
+    static func getSpecifiedUsers(toGet: [Users], callback: @escaping([Users]) -> ()) {
+        let userSet: Set<String> = Set(toGet.map{ $0.email })
+        usersRef.observeSingleEvent(of: .value, with: {(snapshot) in
+            var allUsers: [Users] = []
+            for case let userSnapshot as DataSnapshot in snapshot.children {
+                let id = userSnapshot.key
+                let values = userSnapshot.value as! [String: Any]
+                let firstName = values["firstName"] as! String
+                let lastName = values["lastName"] as! String
+                let email = values["email"] as! String
+                
+                if (userSet.contains(email)) {
+                    let user = Users(id: id, firstName: firstName, lastName: lastName, email: email)
+                    allUsers.append(user)
+                }
+            }
+            callback(allUsers)
+        })
+    }
+    
+    
     
 }
