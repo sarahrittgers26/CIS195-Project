@@ -37,23 +37,126 @@ struct FirebaseGroups {
 //            var allGroups: [Group] = []
             for case let groupSnapshot as DataSnapshot in snapshot.children {
                 let id = groupSnapshot.key
-                let values = groupSnapshot.value as! [String: Any]
+                let values = groupSnapshot.value as! NSDictionary
                 let subject = values["subject"] as! String
                 let number = values["number"] as! String
                 let professor = values["professor"] as! String
                 let sections = values["sections"] as! String
                 
-                let allUsers = values["users"]
-                print(id)
-                // TODO: get users and events
-//                let users = values["users"] as!
-                let group = Group(id: id, subject: subject, courseNum: number, professor: professor, sections: sections, users: [], events: [])
+                // get all members of the group
+                var allUsers: [String] = []
+                if let dict = values.value(forKey: "users") as! NSDictionary? {
+                    for (id, empty) in dict {
+                        if let id = id as? String {
+                            allUsers.append(id)
+                        }
+                    }
+                }
+                
+                // TODO: get all events
+
+                let group = Group(id: id, subject: subject, courseNum: number, professor: professor, sections: sections, users: allUsers, events: [])
                 allGroups.append(group)
             }
-            // return all groups
-//            callback(allGroups)
             FirebaseGroups.allGroups = allGroups
             callback()
+        })
+    }
+    
+    static func getSpecificGroups(toGet: [String], callback: @escaping() -> ()) {
+        let groupSet: Set<String> = Set(toGet)
+        groupsRef.observeSingleEvent(of: .value, with: {(snapshot) in
+            //            var allGroups: [Group] = []
+            for case let groupSnapshot as DataSnapshot in snapshot.children {
+                let id = groupSnapshot.key
+                let values = groupSnapshot.value as! NSDictionary
+                let subject = values["subject"] as! String
+                let number = values["number"] as! String
+                let professor = values["professor"] as! String
+                let sections = values["sections"] as! String
+                
+                if (groupSet.contains(id)) {
+                
+                    // get all members of the group
+                    var allUsers: [String] = []
+                    if let dict = values.value(forKey: "users") as! NSDictionary? {
+                        for (id, empty) in dict {
+                            if let id = id as? String {
+                                allUsers.append(id)
+                            }
+                        }
+                    }
+                    
+                    // TODO: get all events
+                    
+                    let group = Group(id: id, subject: subject, courseNum: number, professor: professor, sections: sections, users: allUsers, events: [])
+                    allGroups.append(group)
+                }
+            }
+            FirebaseGroups.allGroups = allGroups
+            callback()
+        })
+    }
+    
+    // get a group with specific id
+    static func getGroup(groupID: String, callback: @escaping(Group) -> ()) {
+        let id = groupsRef.child(groupID).key
+        let values = groupsRef.child(groupID).value(forKey: groupID) as! NSDictionary
+        let subject = values["subject"] as! String
+        let number = values["number"] as! String
+        let professor = values["professor"] as! String
+        let sections = values["sections"] as! String
+        
+        // get all members of the group
+        var allUsers: [String] = []
+        if let dict = values.value(forKey: "users") as! NSDictionary? {
+            for (id, empty) in dict {
+                if let id = id as? String {
+                    allUsers.append(id)
+                }
+            }
+        }
+        
+        // TODO: get all events
+    
+        let group = Group(id: id ?? "", subject: subject, courseNum: number, professor: professor, sections: sections, users: allUsers, events: [])
+   
+        callback(group)
+
+    }
+    
+    // add a calendar event to the group with id groupId
+    static func addEvent(groupId: String, title: String, date: String, time: String, address: String) {
+        groupsRef.child(groupId).child("events").childByAutoId().setValue(["title": title, "date": date, "time": time, "address": address])
+    }
+    
+    // get calendar events associated with the group
+    static func getEvents(groupId: String, callback: @escaping([Events]) -> ()) {
+        groupsRef.child(groupId).child("events").observeSingleEvent(of: .value, with: {(snapshot) in
+            var allEvents: [Events] = []
+            for case let groupSnapshot as DataSnapshot in snapshot.children {
+                let id = groupSnapshot.key
+                let values = groupSnapshot.value as! NSDictionary
+                let title = values["title"] as! String
+                let date = values["date"] as! String
+                let time = values["time"] as! String
+                let address = values["address"] as! String
+                
+                // get all confirmed users
+                var allUsers: [String] = []
+                if let dict = values.value(forKey: "confirmedUsers") as! NSDictionary? {
+                    for (id, empty) in dict {
+                        if let id = id as? String {
+                            allUsers.append(id)
+                        }
+                    }
+                }
+                
+                let event = Events(id: id, title: title, date: date, time: time, address: address, confirmedUsers: allUsers)
+
+                allEvents.append(event)
+            }
+            callback(allEvents)
         })
     }
 }

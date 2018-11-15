@@ -10,7 +10,11 @@ import Foundation
 
 struct Events {
     
+    let id: String
     let title: String
     let date: String
+    let time: String
+    let address: String
+    let confirmedUsers: [String] // list of user IDs
     
 }

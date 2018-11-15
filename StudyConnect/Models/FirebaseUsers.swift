@@ -37,9 +37,10 @@ struct FirebaseUsers {
         })
     }
     
-    
-    static func getSpecifiedUsers(toGet: [Users], callback: @escaping([Users]) -> ()) {
-        let userSet: Set<String> = Set(toGet.map{ $0.email })
+    // given an array of user ids
+    static func getSpecifiedUsers(toGet: [String], callback: @escaping([Users]) ->Void) {
+//        let userSet: Set<String> = Set(toGet.map{ $0.email })
+        let userSet: Set<String> = Set(toGet)
         usersRef.observeSingleEvent(of: .value, with: {(snapshot) in
             var allUsers: [Users] = []
             for case let userSnapshot as DataSnapshot in snapshot.children {
@@ -49,7 +50,7 @@ struct FirebaseUsers {
                 let lastName = values["lastName"] as! String
                 let email = values["email"] as! String
                 
-                if (userSet.contains(email)) {
+                if (userSet.contains(id)) {
                     let user = Users(id: id, firstName: firstName, lastName: lastName, email: email)
                     allUsers.append(user)
                 }

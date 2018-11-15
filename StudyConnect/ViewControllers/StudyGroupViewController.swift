@@ -47,7 +47,6 @@ class StudyGroupViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(FirebaseGroups.allGroups.count)
         return FirebaseGroups.allGroups.count
     }
     
