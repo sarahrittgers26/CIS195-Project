@@ -579,9 +579,18 @@
                                                 <state key="normal" image="message-2"/>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="e6E-lP-X40"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hgp-dk-utC">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="hgp-dk-utC" secondAttribute="height" multiplier="15:2" id="Yok-IJ-Dmf"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="s58-Ip-tS5">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="28"/>
+                                        <rect key="frame" x="0.0" y="78" width="375" height="28"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yad-v9-V64">
                                                 <rect key="frame" x="0.0" y="0.0" width="173.5" height="28"/>
@@ -599,7 +608,7 @@
                                         </subviews>
                                     </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="99" estimatedRowHeight="99" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LA2-Mq-5Pf">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="438"/>
+                                        <rect key="frame" x="0.0" y="106" width="375" height="358"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupEventCell" rowHeight="99" id="rzk-JN-VQc" customClass="EventTableViewCell" customModule="StudyConnect" customModuleProvider="target">
@@ -610,19 +619,19 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Study Session" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlI-Rf-vEK">
-                                                            <rect key="frame" x="15" y="11" width="375" height="28"/>
+                                                            <rect key="frame" x="8" y="8" width="375" height="28"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ii0-JD-kX8">
-                                                            <rect key="frame" x="15" y="41" width="375" height="24"/>
+                                                            <rect key="frame" x="8" y="38" width="375" height="24"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                                             <color key="textColor" red="0.5450980392" green="0.54901960780000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1a-jS-Te4">
-                                                            <rect key="frame" x="15" y="65" width="375" height="24"/>
+                                                            <rect key="frame" x="8" y="62" width="375" height="24"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                                             <color key="textColor" red="0.5450980392" green="0.54901960780000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -637,7 +646,10 @@
                                                         <constraint firstItem="WlI-Rf-vEK" firstAttribute="top" secondItem="9sI-0Y-iEr" secondAttribute="topMargin" id="QHI-9A-mzn"/>
                                                         <constraint firstItem="ii0-JD-kX8" firstAttribute="top" secondItem="WlI-Rf-vEK" secondAttribute="bottom" constant="2" id="TB3-LZ-9wC"/>
                                                         <constraint firstItem="ii0-JD-kX8" firstAttribute="leading" secondItem="9sI-0Y-iEr" secondAttribute="leadingMargin" id="TUL-wN-yO3"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WlI-Rf-vEK" secondAttribute="trailing" constant="-8" id="euY-y0-5z9"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ii0-JD-kX8" secondAttribute="trailing" constant="-8" id="fNE-7v-Wp8"/>
                                                         <constraint firstItem="ii0-JD-kX8" firstAttribute="width" secondItem="WlI-Rf-vEK" secondAttribute="width" id="oSe-jF-5qz"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="f1a-jS-Te4" secondAttribute="trailing" constant="-8" id="rhG-cF-SBr"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -649,28 +661,55 @@
                                         </prototypes>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MU9-AJ-EgH">
-                                        <rect key="frame" x="0.0" y="494" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="464" width="375" height="30"/>
                                         <color key="backgroundColor" red="0.65098039220000004" green="0.82745098039999998" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Join"/>
+                                        <connections>
+                                            <action selector="joinGroup:" destination="6eu-qZ-50X" eventType="touchUpInside" id="o7g-j2-kLG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojy-cY-VeI">
+                                        <rect key="frame" x="0.0" y="494" width="375" height="30"/>
+                                        <color key="backgroundColor" red="0.63921568630000003" green="0.76470588240000004" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Leave"/>
+                                        <connections>
+                                            <action selector="joinGroup:" destination="6eu-qZ-50X" eventType="touchUpInside" id="oIt-kQ-krL"/>
+                                            <action selector="leaveGroup:" destination="6eu-qZ-50X" eventType="touchUpInside" id="fuf-Te-fxp"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPf-kH-dCf">
                                         <rect key="frame" x="0.0" y="524" width="375" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.50980392159999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Leave"/>
+                                        <state key="normal" title="Delete Group"/>
+                                        <connections>
+                                            <action selector="deleteGroup:" destination="6eu-qZ-50X" eventType="touchUpInside" id="R50-tc-cOt"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="LA2-Mq-5Pf" firstAttribute="width" secondItem="7KP-nH-ir2" secondAttribute="width" id="62U-lw-PL8"/>
-                                    <constraint firstItem="LA2-Mq-5Pf" firstAttribute="top" secondItem="s58-Ip-tS5" secondAttribute="bottom" id="AV0-uR-UE3"/>
-                                    <constraint firstItem="s58-Ip-tS5" firstAttribute="top" secondItem="LoC-c0-7nY" secondAttribute="bottom" id="Ak5-ae-Pqg"/>
                                     <constraint firstItem="LoC-c0-7nY" firstAttribute="top" secondItem="7KP-nH-ir2" secondAttribute="top" id="DMr-XV-tmm"/>
-                                    <constraint firstItem="s58-Ip-tS5" firstAttribute="width" secondItem="7KP-nH-ir2" secondAttribute="width" id="W7I-yx-5bM"/>
-                                    <constraint firstItem="LA2-Mq-5Pf" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="WSl-5t-XXp"/>
+                                    <constraint firstItem="bPf-kH-dCf" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="Eym-HY-688"/>
+                                    <constraint firstItem="hgp-dk-utC" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="H1I-jG-7Rh"/>
+                                    <constraint firstItem="LA2-Mq-5Pf" firstAttribute="top" secondItem="s58-Ip-tS5" secondAttribute="bottom" id="HKn-wg-kem"/>
+                                    <constraint firstItem="Ojy-cY-VeI" firstAttribute="top" secondItem="MU9-AJ-EgH" secondAttribute="bottom" id="I5k-sw-QEv"/>
+                                    <constraint firstItem="MU9-AJ-EgH" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="J5U-Rx-eZO"/>
+                                    <constraint firstItem="Ojy-cY-VeI" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="Jsn-Op-Vv2"/>
+                                    <constraint firstItem="s58-Ip-tS5" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="MEb-0G-XHa"/>
+                                    <constraint firstAttribute="bottom" secondItem="bPf-kH-dCf" secondAttribute="bottom" id="PRg-FA-6NA"/>
+                                    <constraint firstItem="LA2-Mq-5Pf" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="Van-jt-uVK"/>
+                                    <constraint firstItem="hgp-dk-utC" firstAttribute="top" secondItem="LoC-c0-7nY" secondAttribute="bottom" id="Z5o-gD-Hnc"/>
                                     <constraint firstItem="LoC-c0-7nY" firstAttribute="width" secondItem="7KP-nH-ir2" secondAttribute="width" id="aQ2-8l-f9S"/>
+                                    <constraint firstAttribute="trailing" secondItem="bPf-kH-dCf" secondAttribute="trailing" id="e4J-0k-5xm"/>
+                                    <constraint firstItem="s58-Ip-tS5" firstAttribute="top" secondItem="hgp-dk-utC" secondAttribute="bottom" id="f6K-T1-Kvz"/>
+                                    <constraint firstItem="Ojy-cY-VeI" firstAttribute="width" secondItem="MU9-AJ-EgH" secondAttribute="width" id="fVu-cQ-Jsw"/>
                                     <constraint firstItem="LoC-c0-7nY" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="jus-ku-2xl"/>
-                                    <constraint firstItem="s58-Ip-tS5" firstAttribute="leading" secondItem="7KP-nH-ir2" secondAttribute="leading" id="ks9-oc-NnU"/>
+                                    <constraint firstAttribute="trailing" secondItem="MU9-AJ-EgH" secondAttribute="trailing" id="m1q-cg-aVS"/>
+                                    <constraint firstItem="LA2-Mq-5Pf" firstAttribute="width" secondItem="s58-Ip-tS5" secondAttribute="width" id="nDS-s7-kZK"/>
+                                    <constraint firstItem="MU9-AJ-EgH" firstAttribute="top" secondItem="LA2-Mq-5Pf" secondAttribute="bottom" id="zah-cU-ZDE"/>
+                                    <constraint firstItem="bPf-kH-dCf" firstAttribute="top" secondItem="Ojy-cY-VeI" secondAttribute="bottom" id="zyA-o2-QXx"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -687,6 +726,7 @@
                     </view>
                     <connections>
                         <outlet property="emailBtn" destination="gZb-vg-YrW" id="rnZ-VF-dlu"/>
+                        <outlet property="labelStackView" destination="hgp-dk-utC" id="uRr-Td-EpN"/>
                         <outlet property="membersLabel" destination="1Bn-xP-AaR" id="o1o-Kx-Pta"/>
                         <outlet property="newEvent" destination="tzh-GM-xdC" id="wNy-Yp-ex8"/>
                         <outlet property="tableView" destination="LA2-Mq-5Pf" id="72r-yc-1UV"/>

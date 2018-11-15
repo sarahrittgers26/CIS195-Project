@@ -12,11 +12,16 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var group: Group?
     var events: [Events] = []
-    var members: [Users] = []
+    
+    // keep track of members and created labels
+//    var members: [Users] = []
+//    var memberLabels: [UILabel] = []
+    
     @IBOutlet weak var membersLabel: UILabel!
     @IBOutlet weak var emailBtn: UIButton!
     @IBOutlet weak var newEvent: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var labelStackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +47,20 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // add members
     func renderMembers() {
+        // remove existing labels
+        for view in self.labelStackView.subviews {
+            view.removeFromSuperview()
+        }
+        
         guard let group = group else { return }
         FirebaseUsers.getSpecifiedUsers(toGet: group.users, callback: { (users) in
-            self.members = users
-            
+            for user in users {
+                let label = UILabel()
+                label.text = "\(user.firstName) \(user.lastName)"
+                label.textColor = UIColor(red: 139/255, green: 140/255, blue: 137/255, alpha: 1)
+                self.labelStackView.addArrangedSubview(label)
+                
+            }
         })
     }
     
@@ -60,6 +75,29 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             })
         }
     }
+    
+    // Actions
+    @IBAction func joinGroup(_ sender: Any) {
+    }
+    
+    @IBAction func leaveGroup(_ sender: Any) {
+    }
+    
+    @IBAction func deleteGroup(_ sender: Any) {
+        let alert = UIAlertController(title: "Are you sure?", message: "This cannot be undone", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {(action: UIAlertAction!) in
+            // do nothing
+        }))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action: UIAlertAction!) in
+            if let group = self.group {
+                FirebaseGroups.deleteGroup(groupID: group.id, callback: {
+                    self.performSegueToReturnBack()
+                })
+            }
+        }))
+        self.present(alert, animated: true)
+    }
+    
     
     // Table View Data Source and Delegate Methods
     
@@ -81,6 +119,16 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return eventCell
         }
         return cell!
+    }
+    
+    func performSegueToReturnBack()  {
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:"groupDeleted"), object: nil)
+            print("hi")
+        } else {
+            self.dismiss(animated: true, completion: {NotificationCenter.default.post(name: NSNotification.Name(rawValue:"groupDeleted"), object: nil)})
+        }
     }
 
     /*

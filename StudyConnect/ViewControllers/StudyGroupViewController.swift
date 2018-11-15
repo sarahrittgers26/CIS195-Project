@@ -22,13 +22,18 @@ class StudyGroupViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.dataSource = self
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(StudyGroupViewController.reloadGroups),
-                                               name: NSNotification.Name(rawValue: "modalIsDimissed"),
+                                               name: NSNotification.Name(rawValue: "addGroupDismissed"),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(StudyGroupViewController.reloadGroups),
+                                               name: NSNotification.Name(rawValue: "groupDeleted"),
                                                object: nil)
         reloadGroups()
     }
     
     // reload the data into the table when finished querying from firebase
     @objc func reloadGroups() {
+        print("reloading groups")
         FirebaseGroups.getGroups(callback: {self.tableView.reloadData()})
     }
     

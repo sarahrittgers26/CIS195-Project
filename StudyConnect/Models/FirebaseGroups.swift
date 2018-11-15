@@ -33,6 +33,7 @@ struct FirebaseGroups {
     }
     
     static func getGroups(callback: @escaping() -> ()) {
+        allGroups.removeAll()
         groupsRef.observeSingleEvent(of: .value, with: {(snapshot) in
 //            var allGroups: [Group] = []
             for case let groupSnapshot as DataSnapshot in snapshot.children {
@@ -158,5 +159,10 @@ struct FirebaseGroups {
             }
             callback(allEvents)
         })
+    }
+    
+    static func deleteGroup(groupID: String, callback: @escaping() -> ()) {
+        groupsRef.child(groupID).removeValue()
+        callback()
     }
 }
