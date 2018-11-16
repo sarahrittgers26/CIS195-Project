@@ -47,7 +47,7 @@ struct FirebaseGroups {
                 // get all members of the group
                 var allUsers: [String] = []
                 if let dict = values.value(forKey: "users") as! NSDictionary? {
-                    for (id, empty) in dict {
+                    for (id, _) in dict {
                         if let id = id as? String {
                             allUsers.append(id)
                         }
@@ -81,7 +81,7 @@ struct FirebaseGroups {
                     // get all members of the group
                     var allUsers: [String] = []
                     if let dict = values.value(forKey: "users") as! NSDictionary? {
-                        for (id, empty) in dict {
+                        for (id, _) in dict {
                             if let id = id as? String {
                                 allUsers.append(id)
                             }
@@ -111,7 +111,7 @@ struct FirebaseGroups {
             // get all members of the group
             var allUsers: [String] = []
             if let dict = values.value(forKey: "users") as! NSDictionary? {
-                for (id, empty) in dict {
+                for (id, _) in dict {
                     if let id = id as? String {
                         allUsers.append(id)
                     }
@@ -148,7 +148,7 @@ struct FirebaseGroups {
                 // get all confirmed users
                 var allUsers: [String] = []
                 if let dict = values.value(forKey: "confirmedUsers") as! NSDictionary? {
-                    for (id, empty) in dict {
+                    for (id, _) in dict {
                         if let id = id as? String {
                             allUsers.append(id)
                         }
@@ -192,4 +192,46 @@ struct FirebaseGroups {
             }
         })
     }
+    
+    static func confirmUserForEvent(groupID: String, eventID: String, userID: String, callback: @escaping(Bool) -> ()) {
+        groupsRef.child(groupID).child("events").child(eventID).child("confirmed").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                callback(false)
+            } else {
+                groupsRef.child(groupID).child("events").child(eventID).child("confirmed").child(userID).setValue("")
+                callback(true)
+            }
+        })
+    }
+    
+    // delete an event
+    static func deleteEvent(groupID: String, eventID: String, callback: @escaping() -> ()) {
+        groupsRef.child(groupID).child("events").child(eventID).removeValue()
+        callback()
+    }
+    
+    // get a specific event from a group
+    static func getEvent(groupID: String, eventID: String, callback: @escaping(Events) -> ()) {
+        groupsRef.child(groupID).child("events").child(eventID).observeSingleEvent(of: .value, with: {(snapshot) in
+            let values = snapshot.value as! NSDictionary
+            let address = values["address"] as! String
+            let date = values["date"] as! String
+            let time = values["time"] as! String
+            let title = values["title"] as! String
+            
+            // get all confirmed users of the event
+            var confirmedUsers: [String] = []
+            if let dict = values.value(forKey: "confirmed") as! NSDictionary? {
+                for (id, _) in dict {
+                    if let id = id as? String {
+                        confirmedUsers.append(id)
+                    }
+                }
+            }
+            
+            let event = Events(id: eventID, title: title, date: date, time: time, address: address, confirmedUsers: confirmedUsers)
+            callback(event)
+        })
+    }
+    
 }

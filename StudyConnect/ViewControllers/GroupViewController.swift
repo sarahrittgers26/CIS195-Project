@@ -33,8 +33,14 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                                selector: #selector(GroupViewController.reloadEvents),
                                                name: NSNotification.Name(rawValue: "addEventDismissed"),
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(GroupViewController.reloadEvents),
+                                               name: NSNotification.Name(rawValue: "eventDeleted"),
+                                               object: nil)
         reloadEvents()
         renderMembers()
+        if let group = group {
+            self.title = "\(group.subject) \(group.courseNum)" }
     }
     
     func reloadGroup() {
@@ -52,7 +58,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         for view in self.labelStackView.subviews {
             view.removeFromSuperview()
         }
-        print(self.labelStackView.subviews.count)
+
         guard let group = group else { return }
         FirebaseUsers.getSpecifiedUsers(toGet: group.users, callback: { (users) in
             for user in users {
@@ -146,7 +152,6 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let nav = self.navigationController {
             nav.popViewController(animated: true)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue:"groupDeleted"), object: nil)
-            print("hi")
         } else {
             self.dismiss(animated: true, completion: {NotificationCenter.default.post(name: NSNotification.Name(rawValue:"groupDeleted"), object: nil)})
         }
@@ -166,6 +171,12 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if segue.destination is AddEventViewController {
             let vc = segue.destination as? AddEventViewController
             vc?.group = group
+        } else if segue.destination is ShowEventViewController {
+            let vc = segue.destination as? ShowEventViewController
+            vc?.group = group
+            let index = tableView.indexPathForSelectedRow?.row
+            let event = self.events[index!]
+            vc?.event = event
         }
     }
 

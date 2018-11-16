@@ -14,6 +14,7 @@ class AddEventViewController: UIViewController {
     @IBOutlet weak var date: UITextField!
     @IBOutlet weak var time: UITextField!
     @IBOutlet weak var address: UITextField!
+    @IBOutlet weak var addressSearch: UISearchBar!
     
     var group: Group?
     
@@ -51,3 +52,4 @@ class AddEventViewController: UIViewController {
     */
 
 }
+
