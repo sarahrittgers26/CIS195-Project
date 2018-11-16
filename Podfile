@@ -2,6 +2,7 @@
 # platform :ios, '9.0'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
+pod 'GoogleSignIn'
 pod 'Firebase/Database'
 
 target 'StudyConnect' do

@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import GoogleSignIn
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, GIDSignInUIDelegate {
 
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -19,23 +20,19 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // TODO: remove
-//        do {
-//            try Auth.auth().signOut()
-//        } catch {
-//            
-//        }
-        
         // detect when sign up modal closed
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(ViewController.handleModalDismissed),
                                                name: NSNotification.Name(rawValue: "modalIsDimissed"),
                                                object: nil)
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().signIn()
        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        // check if user is already logged in
         if (Auth.auth().currentUser != nil) {
             self.performSegue(withIdentifier: "loginToStudy", sender: self)
         }
@@ -53,7 +50,8 @@ class ViewController: UIViewController {
         if let emailStr = email.text, let passwordStr = password.text {
             Auth.auth().signIn(withEmail: emailStr, password: passwordStr) { (user, error) in
                 if let user = user, error == nil {
-                    
+                    self.email.text = ""
+                    self.password.text = ""
                     self.performSegue(withIdentifier: "loginToStudy", sender: self)
                 } else {
                     let alert = Helpers.showErrorAlert(message: "Invalid email/password")

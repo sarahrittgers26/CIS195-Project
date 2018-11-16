@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T1T-tX-ZNV">
-                                <rect key="frame" x="87.5" y="285" width="200" height="30"/>
+                                <rect key="frame" x="87.5" y="292" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="gMf-XL-VFD"/>
                                 </constraints>
@@ -36,7 +36,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sVR-G8-SFf">
-                                <rect key="frame" x="87.5" y="230" width="200" height="30"/>
+                                <rect key="frame" x="87.5" y="237" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="3Ta-bq-8sl"/>
                                 </constraints>
@@ -45,16 +45,16 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StudyConnect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdI-T0-x39">
-                                <rect key="frame" x="91.5" y="120" width="192.5" height="35"/>
+                                <rect key="frame" x="80.5" y="120" width="214" height="42"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="gpY-1s-Oev">
-                                <rect key="frame" x="100" y="345" width="175" height="32"/>
+                                <rect key="frame" x="100" y="352" width="175" height="36"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDE-Mu-S6K">
-                                        <rect key="frame" x="0.0" y="0.0" width="72.5" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="72.5" height="36"/>
                                         <color key="backgroundColor" red="0.63921568627450975" green="0.80784313725490198" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,7 +64,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vy-bp-wI9">
-                                        <rect key="frame" x="102.5" y="0.0" width="72.5" height="32"/>
+                                        <rect key="frame" x="102.5" y="0.0" width="72.5" height="36"/>
                                         <color key="backgroundColor" red="0.65098039215686276" green="0.82745098039215681" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -78,18 +78,28 @@
                                     <constraint firstAttribute="width" constant="175" id="PUo-fI-YOq"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQl-3C-lfi" customClass="GIDSignInButton">
+                                <rect key="frame" x="137.5" y="418" width="100" height="36"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Zrg-qA-MFI"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="T1T-tX-ZNV" firstAttribute="top" secondItem="sVR-G8-SFf" secondAttribute="bottom" constant="25" id="6fx-9H-oib"/>
                             <constraint firstItem="sVR-G8-SFf" firstAttribute="top" secondItem="cdI-T0-x39" secondAttribute="bottom" constant="75" id="75J-SC-2wK"/>
                             <constraint firstItem="Utd-ek-pzz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="8iV-x1-jQM"/>
+                            <constraint firstItem="QQl-3C-lfi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EbF-Mm-x1d"/>
                             <constraint firstItem="Utd-ek-pzz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="HGV-tw-sMH"/>
                             <constraint firstItem="cdI-T0-x39" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="Lfh-Sc-rKf"/>
+                            <constraint firstItem="QQl-3C-lfi" firstAttribute="top" secondItem="gpY-1s-Oev" secondAttribute="bottom" constant="30" id="Lms-Fw-zqe"/>
                             <constraint firstItem="Utd-ek-pzz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MCw-Il-ruw"/>
                             <constraint firstItem="gpY-1s-Oev" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q9X-xb-K3Q"/>
                             <constraint firstItem="gpY-1s-Oev" firstAttribute="top" secondItem="T1T-tX-ZNV" secondAttribute="bottom" constant="30" id="Qcv-BT-IMD"/>
                             <constraint firstItem="T1T-tX-ZNV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kcb-xI-UYa"/>
+                            <constraint firstItem="QQl-3C-lfi" firstAttribute="height" secondItem="gDE-Mu-S6K" secondAttribute="height" id="okZ-aw-Djq"/>
                             <constraint firstItem="cdI-T0-x39" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rho-rN-6Xr"/>
                             <constraint firstItem="sVR-G8-SFf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sbh-p0-2vv"/>
                             <constraint firstItem="Utd-ek-pzz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ygz-Td-ooQ"/>

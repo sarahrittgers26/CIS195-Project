@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         user = Auth.auth().currentUser
+        
         FirebaseUsers.getSpecifiedUsers(toGet: [(user?.uid)!], callback: { (users) in
             self.setupPage(user: users[0])
         })
@@ -34,6 +35,7 @@ class ProfileViewController: UIViewController {
     @IBAction func logout(_ sender: Any) {
         do {
             try Auth.auth().signOut()
+            self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
         } catch {
             
         }

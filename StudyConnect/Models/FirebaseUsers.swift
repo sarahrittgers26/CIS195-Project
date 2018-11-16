@@ -63,4 +63,15 @@ struct FirebaseUsers {
         return Auth.auth().currentUser
     }
     
+    // return true if the user already exists, otherwise false
+    static func checkUserExists(userID: String, callback: @escaping(Bool) -> ()) {
+        usersRef.child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                callback(true)
+            } else {
+                callback(false)
+            }
+        })
+    }
+    
 }
