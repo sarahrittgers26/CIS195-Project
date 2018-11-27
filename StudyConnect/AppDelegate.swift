@@ -71,8 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             // User is signed in
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "modalIsDimissed"), object: nil)
-//            print(user.userID)
-//            print(authResult?.user.uid)
             if let userID = authResult?.user.uid {
                 // check if the user is in the database and if not, create a record
                 FirebaseUsers.checkUserExists(userID: userID, callback: { (exists) in

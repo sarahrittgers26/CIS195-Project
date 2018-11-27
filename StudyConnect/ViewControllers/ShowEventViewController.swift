@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleAPIClientForREST
+
 
 class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
@@ -108,9 +110,6 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         })
     }
     
-    @IBAction func addToCalendar(_ sender: Any) {
-    }
-    
     @IBAction func deleteEvent(_ sender: Any) {
         let alert = UIAlertController(title: "Are you sure?", message: "This cannot be undone", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {(action: UIAlertAction!) in
@@ -172,5 +171,6 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         // Pass the selected object to the new view controller.
     }
     */
+    
 
 }

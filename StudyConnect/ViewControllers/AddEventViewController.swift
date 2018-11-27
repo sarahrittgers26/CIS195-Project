@@ -14,7 +14,7 @@ class AddEventViewController: UIViewController {
     @IBOutlet weak var date: UITextField!
     @IBOutlet weak var time: UITextField!
     @IBOutlet weak var address: UITextField!
-    @IBOutlet weak var addressSearch: UISearchBar!
+    
     
     var group: Group?
     
@@ -22,6 +22,16 @@ class AddEventViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AddEventViewController.changeAddress),
+                                               name: NSNotification.Name(rawValue: "addressSelected"),
+                                               object: nil)
+    }
+    
+    // change the address field
+    @objc func changeAddress(notification: Notification) {
+        let passedData = notification.userInfo as! [String: String]
+        address.text = passedData["address"]
     }
     
     @IBAction func createEvent(_ sender: Any) {
@@ -35,6 +45,10 @@ class AddEventViewController: UIViewController {
                 self.dismiss(animated: true, completion: {NotificationCenter.default.post(name: NSNotification.Name(rawValue:"addEventDismissed"), object: nil)})
             }
         }
+    }
+    
+    @IBAction func showMapSearch(_ sender: Any) {
+            performSegue(withIdentifier: "mapSegue", sender: nil)
     }
     
     @IBAction func cancel(_ sender: Any) {

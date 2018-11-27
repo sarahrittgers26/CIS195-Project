@@ -4,6 +4,7 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'GoogleSignIn'
 pod 'Firebase/Database'
+pod 'GoogleAPIClientForREST/Calendar'
 
 target 'StudyConnect' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
