@@ -14,10 +14,6 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var group: Group?
     var events: [Events] = []
     
-    // keep track of members and created labels
-//    var members: [Users] = []
-//    var memberLabels: [UILabel] = []
-    
     @IBOutlet weak var membersLabel: UILabel!
     @IBOutlet weak var emailBtn: UIButton!
     @IBOutlet weak var newEvent: UIButton!

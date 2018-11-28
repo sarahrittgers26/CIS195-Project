@@ -48,7 +48,7 @@ class AddEventViewController: UIViewController {
     }
     
     @IBAction func showMapSearch(_ sender: Any) {
-            performSegue(withIdentifier: "mapSegue", sender: nil)
+        performSegue(withIdentifier: "mapSegue", sender: nil)
     }
     
     @IBAction func cancel(_ sender: Any) {

@@ -28,8 +28,6 @@ struct FirebaseGroups {
         let uid = Auth.auth().currentUser?.uid
         groupsRef.childByAutoId().setValue(["subject": subject, "number": courseNumber,
                                             "professor": professor, "sections": sections, "users": [uid: ""]])
-        
-        
     }
     
     static func getGroups(callback: @escaping() -> ()) {

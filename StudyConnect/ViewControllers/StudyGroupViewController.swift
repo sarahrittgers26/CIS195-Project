@@ -33,7 +33,6 @@ class StudyGroupViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // reload the data into the table when finished querying from firebase
     @objc func reloadGroups() {
-        print("reloading groups")
         FirebaseGroups.getGroups(callback: {self.tableView.reloadData()})
     }
     

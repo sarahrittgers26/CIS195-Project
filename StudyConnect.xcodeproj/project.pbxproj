@@ -26,6 +26,12 @@
 		F4456A81219BEF79008D507D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4456A80219BEF79008D507D /* ProfileViewController.swift */; };
 		F4456A85219BFC21008D507D /* StudyGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4456A84219BFC21008D507D /* StudyGroupViewController.swift */; };
 		F499ECE921ADAF860073D354 /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F499ECE821ADAF860073D354 /* MapSearchViewController.swift */; };
+		F499ECEB21ADE7750073D354 /* ForumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F499ECEA21ADE7750073D354 /* ForumTableViewCell.swift */; };
+		F499ECED21ADEF460073D354 /* ForumQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F499ECEC21ADEF460073D354 /* ForumQuestionViewController.swift */; };
+		F499ECEF21ADEF870073D354 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = F499ECEE21ADEF870073D354 /* Question.swift */; };
+		F499ECF121ADF0670073D354 /* AddQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F499ECF021ADF0670073D354 /* AddQuestionViewController.swift */; };
+		F499ECF321ADF5C70073D354 /* FirebaseForum.swift in Sources */ = {isa = PBXBuildFile; fileRef = F499ECF221ADF5C70073D354 /* FirebaseForum.swift */; };
+		F499ECF521ADFC810073D354 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = F499ECF421ADFC810073D354 /* Response.swift */; };
 		F4A21228219A38B4000C9134 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A21227219A38B4000C9134 /* AppDelegate.swift */; };
 		F4A2122A219A38B4000C9134 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A21229219A38B4000C9134 /* ViewController.swift */; };
 		F4A2122D219A38B4000C9134 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4A2122B219A38B4000C9134 /* Main.storyboard */; };
@@ -81,6 +87,12 @@
 		F4456A80219BEF79008D507D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		F4456A84219BFC21008D507D /* StudyGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupViewController.swift; sourceTree = "<group>"; };
 		F499ECE821ADAF860073D354 /* MapSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchViewController.swift; sourceTree = "<group>"; };
+		F499ECEA21ADE7750073D354 /* ForumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumTableViewCell.swift; sourceTree = "<group>"; };
+		F499ECEC21ADEF460073D354 /* ForumQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumQuestionViewController.swift; sourceTree = "<group>"; };
+		F499ECEE21ADEF870073D354 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		F499ECF021ADF0670073D354 /* AddQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestionViewController.swift; sourceTree = "<group>"; };
+		F499ECF221ADF5C70073D354 /* FirebaseForum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseForum.swift; sourceTree = "<group>"; };
+		F499ECF421ADFC810073D354 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		F4A21224219A38B4000C9134 /* StudyConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4A21227219A38B4000C9134 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4A21229219A38B4000C9134 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -155,9 +167,12 @@
 			children = (
 				F4456A74219B30E3008D507D /* FirebaseUsers.swift */,
 				F443F2D8219C799D0071E9B7 /* FirebaseGroups.swift */,
+				F499ECF221ADF5C70073D354 /* FirebaseForum.swift */,
 				F443F2E0219CCACC0071E9B7 /* Group.swift */,
 				F443F2E2219CCB8E0071E9B7 /* Users.swift */,
 				F443F2E4219CCBE20071E9B7 /* Events.swift */,
+				F499ECEE21ADEF870073D354 /* Question.swift */,
+				F499ECF421ADFC810073D354 /* Response.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -174,6 +189,8 @@
 				F499ECE821ADAF860073D354 /* MapSearchViewController.swift */,
 				F4435FCE219DDA2C0037989D /* ShowEventViewController.swift */,
 				F4456A78219BEEE5008D507D /* ForumViewController.swift */,
+				F499ECEC21ADEF460073D354 /* ForumQuestionViewController.swift */,
+				F499ECF021ADF0670073D354 /* AddQuestionViewController.swift */,
 				F4456A80219BEF79008D507D /* ProfileViewController.swift */,
 			);
 			path = ViewControllers;
@@ -216,6 +233,7 @@
 				F4A21233219A38B6000C9134 /* Info.plist */,
 				F443F2DC219C8D9A0071E9B7 /* StudyGroupTableViewCell.swift */,
 				F443F2E6219CFACA0071E9B7 /* EventTableViewCell.swift */,
+				F499ECEA21ADE7750073D354 /* ForumTableViewCell.swift */,
 			);
 			path = StudyConnect;
 			sourceTree = "<group>";
@@ -501,17 +519,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F499ECF321ADF5C70073D354 /* FirebaseForum.swift in Sources */,
 				F4A2125C219A8B1E000C9134 /* SignUpViewController.swift in Sources */,
 				F443F2D9219C799D0071E9B7 /* FirebaseGroups.swift in Sources */,
 				F443F2E9219D08E80071E9B7 /* AddEventViewController.swift in Sources */,
+				F499ECEB21ADE7750073D354 /* ForumTableViewCell.swift in Sources */,
 				F4456A77219B768E008D507D /* Helpers.swift in Sources */,
 				F4A2122A219A38B4000C9134 /* ViewController.swift in Sources */,
 				F443F2DF219C928F0071E9B7 /* AddGroupViewController.swift in Sources */,
 				F4435FCF219DDA2C0037989D /* ShowEventViewController.swift in Sources */,
 				F443F2DB219C7B4A0071E9B7 /* GroupViewController.swift in Sources */,
+				F499ECEF21ADEF870073D354 /* Question.swift in Sources */,
 				F443F2E3219CCB8E0071E9B7 /* Users.swift in Sources */,
+				F499ECED21ADEF460073D354 /* ForumQuestionViewController.swift in Sources */,
 				F443F2E1219CCACC0071E9B7 /* Group.swift in Sources */,
 				F443F2E7219CFACB0071E9B7 /* EventTableViewCell.swift in Sources */,
+				F499ECF121ADF0670073D354 /* AddQuestionViewController.swift in Sources */,
 				F4456A79219BEEE5008D507D /* ForumViewController.swift in Sources */,
 				F443F2E5219CCBE20071E9B7 /* Events.swift in Sources */,
 				F443F2DD219C8D9A0071E9B7 /* StudyGroupTableViewCell.swift in Sources */,
@@ -520,6 +543,7 @@
 				F4456A81219BEF79008D507D /* ProfileViewController.swift in Sources */,
 				F4456A85219BFC21008D507D /* StudyGroupViewController.swift in Sources */,
 				F4456A75219B30E3008D507D /* FirebaseUsers.swift in Sources */,
+				F499ECF521ADFC810073D354 /* Response.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
