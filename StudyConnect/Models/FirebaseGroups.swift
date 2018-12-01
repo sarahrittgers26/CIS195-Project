@@ -180,7 +180,7 @@ struct FirebaseGroups {
                 
                 // get all confirmed users
                 var allUsers: [String] = []
-                if let dict = values.value(forKey: "confirmedUsers") as! NSDictionary? {
+                if let dict = values.value(forKey: "confirmed") as! NSDictionary? {
                     for (id, _) in dict {
                         if let id = id as? String {
                             allUsers.append(id)

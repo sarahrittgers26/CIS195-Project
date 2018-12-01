@@ -7,15 +7,14 @@
 //
 
 import UIKit
+import MessageUI
 
-
-class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
     var group: Group?
     var events: [Events] = []
     
     @IBOutlet weak var membersLabel: UILabel!
-    @IBOutlet weak var emailBtn: UIButton!
     @IBOutlet weak var newEvent: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelStackView: UIStackView!
@@ -60,7 +59,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             for user in users {
                 let label = UILabel()
                 label.text = "\(user.firstName) \(user.lastName)"
-                label.textColor = UIColor(red: 139/255, green: 140/255, blue: 137/255, alpha: 1)
+                label.textColor = UIColor(red: 69/255, green: 134/255, blue: 211/255, alpha: 1)
                 self.labelStackView.addArrangedSubview(label)
                 
             }
@@ -104,6 +103,23 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.present(alert, animated: true)
             }
         })
+    }
+    
+    @IBAction func sendMail(_ sender: Any) {
+        if (MFMailComposeViewController.canSendMail()) {
+            let composeVC = MFMailComposeViewController()
+            composeVC.setToRecipients(group?.users)
+            composeVC.setSubject("\(group?.subject): \(group?.courseNum)")
+            self.present(composeVC, animated: true, completion: nil)
+        } else {
+            let alert = Helpers.showErrorAlert(message: "Mail services are not available")
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController,
+                               didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func deleteGroup(_ sender: Any) {

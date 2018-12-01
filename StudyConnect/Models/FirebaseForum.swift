@@ -42,7 +42,6 @@ struct FirebaseForum {
     }
     
     static func filterQuestions(schoolFilter: String, tagFilter: String, callback: @escaping() -> ()) {
-        print("filtering")
         allQuestions.removeAll()
         forumRef.observeSingleEvent(of: .value, with: {(snapshot) in
             for case let questionSnapshot as DataSnapshot in snapshot.children {

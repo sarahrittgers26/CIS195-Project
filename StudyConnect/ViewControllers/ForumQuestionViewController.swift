@@ -30,6 +30,7 @@ class ForumQuestionViewController: UIViewController {
             schoolLabel.text = "School: \(question.school)"
             tagLabel.text = "Tag: \(question.tag)"
         }
+        
         reloadResponses()
     }
     
@@ -53,21 +54,27 @@ class ForumQuestionViewController: UIViewController {
         for view in self.responsesView.subviews {
             view.removeFromSuperview()
         }
-        
+
         for response in responses {
             let text = UITextView()
             text.isScrollEnabled = false
             text.isEditable = false
-            text.backgroundColor = UIColor(red: 231/255, green: 236/255, blue: 239/255, alpha: 1)
+            text.backgroundColor = UIColor(red: 69/255, green: 134/255, blue: 211/255, alpha: 1)
             text.text = response.text
-            text.font = UIFont (name: "Poppins", size: 17)
+            text.font = UIFont(name: "Arial", size: 17)
         
-            text.textColor = UIColor(red: 139/255, green: 140/255, blue: 137/255, alpha: 1)
-            
-//            text.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            
+            text.textColor = UIColor(red: 208/255, green: 213/255, blue: 217/255, alpha: 1)
             
             self.responsesView.addArrangedSubview(text)
+        }
+        scrollToEnd()
+    }
+    
+    func scrollToEnd() {
+        let contentViewHeight = scrollView.contentSize.height + responsesView.spacing + 50
+        let offsetY = contentViewHeight - scrollView.bounds.height
+        if (offsetY > 0) {
+        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: offsetY), animated: true)
         }
     }
     

@@ -22,7 +22,7 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     var group: Group?
     var event: Events?
     let locationManager = CLLocationManager()
-    let regionInMeters: Double = 10000
+    let regionInMeters: Double = 2000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         map.delegate = self
         map.showsUserLocation = true
         updateView()
-        
+        renderConfirmedUsers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -156,7 +156,7 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             for user in users {
                 let label = UILabel()
                 label.text = "\(user.firstName) \(user.lastName)"
-                label.textColor = UIColor(red: 139/255, green: 140/255, blue: 137/255, alpha: 1)
+                label.textColor = UIColor(red: 69/255, green: 134/255, blue: 211/255, alpha: 1)
                 self.confirmedUsers.addArrangedSubview(label)
             }
         })
