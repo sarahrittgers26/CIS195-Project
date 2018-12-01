@@ -51,8 +51,6 @@ struct FirebaseGroups {
                         }
                     }
                 }
-                
-                // TODO: get all events
 
                 let group = Group(id: id, subject: subject, courseNum: number, professor: professor, sections: sections, users: allUsers, events: [])
                 allGroups.append(group)
@@ -124,6 +122,43 @@ struct FirebaseGroups {
             callback(group)
         })
 
+    }
+    
+    static func search(term: String, callback: @escaping() -> ()) {
+        if (term.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
+            return FirebaseGroups.getGroups(callback: callback)
+        }
+        let searchterm = term.lowercased()
+        
+        allGroups.removeAll()
+        groupsRef.observeSingleEvent(of: .value, with: {(snapshot) in
+            for case let groupSnapshot as DataSnapshot in snapshot.children {
+                let id = groupSnapshot.key
+                let values = groupSnapshot.value as! NSDictionary
+                let subject = values["subject"] as! String
+                let number = values["number"] as! String
+                let professor = values["professor"] as! String
+                let sections = values["sections"] as! String
+                
+                if (subject.lowercased().contains(searchterm)) {
+                
+                    // get all members of the group
+                    var allUsers: [String] = []
+                    if let dict = values.value(forKey: "users") as! NSDictionary? {
+                        for (id, _) in dict {
+                            if let id = id as? String {
+                                allUsers.append(id)
+                            }
+                        }
+                    }
+                    
+                    let group = Group(id: id, subject: subject, courseNum: number, professor: professor, sections: sections, users: allUsers, events: [])
+                    allGroups.append(group)
+                }
+            }
+            FirebaseGroups.allGroups = allGroups
+            callback()
+        })
     }
     
     // add a calendar event to the group with id groupId

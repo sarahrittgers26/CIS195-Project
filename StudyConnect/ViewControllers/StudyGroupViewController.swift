@@ -32,7 +32,9 @@ class StudyGroupViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func search(_ sender: Any) {
-//        FirebaseGroups.search(searchBar.text, )
+        FirebaseGroups.search(term: searchBar.text ?? "") {
+            self.tableView.reloadData()
+        }
     }
     
     // reload the data into the table when finished querying from firebase
