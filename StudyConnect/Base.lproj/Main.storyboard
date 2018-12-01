@@ -147,13 +147,13 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="xXW-sK-b2h">
-                                        <rect key="frame" x="0.0" y="0.0" width="329" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="56"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.92549019610000005" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="barTintColor" red="0.90588235289999997" green="0.92549019610000005" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RcC-Vl-s59">
-                                        <rect key="frame" x="329" y="0.0" width="46" height="56"/>
+                                        <rect key="frame" x="334" y="0.0" width="41" height="56"/>
                                         <color key="backgroundColor" red="0.63921568630000003" green="0.76470588240000004" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                         <state key="normal" title="Search">
@@ -352,19 +352,20 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="1GN-hz-JIY">
-                                        <rect key="frame" x="0.0" y="0.0" width="329" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="56"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.92549019610000005" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="barTintColor" red="0.90588235289999997" green="0.92549019610000005" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghW-So-Ndw">
-                                        <rect key="frame" x="329" y="0.0" width="46" height="56"/>
+                                        <rect key="frame" x="334" y="0.0" width="41" height="56"/>
                                         <color key="backgroundColor" red="0.65098039220000004" green="0.82745098039999998" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                         <state key="normal" title="Search">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="search:" destination="S4p-6O-gtK" eventType="touchUpInside" id="hbd-qA-rcc"/>
                                             <action selector="searchGroups:" destination="S4p-6O-gtK" eventType="touchUpInside" id="9cX-e5-bbl"/>
                                         </connections>
                                     </button>
@@ -427,7 +428,6 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="PTA-XP-K1w" secondAttribute="trailing" id="yRt-ef-R0J"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.90588235289999997" green="0.92549019610000005" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <outlet property="classTitle" destination="Jj1-qu-sdn" id="TAj-22-NUD"/>
                                             <outlet property="members" destination="D5J-eA-TVh" id="bCL-LC-l6b"/>
@@ -1315,12 +1315,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mfh-4h-pyk">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-default" translatesAutoresizingMaskIntoConstraints="NO" id="mfh-4h-pyk">
                                 <rect key="frame" x="112.5" y="95" width="150" height="150"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="amC-UO-Bn1"/>
                                     <constraint firstAttribute="height" constant="150" id="wex-RV-EHb"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="nSD-bz-twK" appends="YES" id="XQr-Vh-aar"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BI-rg-Mof">
                                 <rect key="frame" x="149.5" y="260" width="76" height="35"/>
@@ -1329,15 +1333,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUV-dg-qKm">
-                                <rect key="frame" x="15" y="325" width="62.5" height="28"/>
+                                <rect key="frame" x="156.5" y="325" width="62.5" height="28"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzq-oV-MTs">
-                                <rect key="frame" x="163" y="561" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzq-oV-MTs">
+                                <rect key="frame" x="87.5" y="538" width="200" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.50980392159999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Yd4-5s-uRR"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
@@ -1348,10 +1354,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4BI-rg-Mof" firstAttribute="centerX" secondItem="798-n8-xdx" secondAttribute="centerX" id="Kyj-nG-wvu"/>
+                            <constraint firstItem="dUV-dg-qKm" firstAttribute="centerX" secondItem="798-n8-xdx" secondAttribute="centerX" id="MrE-Lm-4xr"/>
                             <constraint firstItem="dUV-dg-qKm" firstAttribute="top" secondItem="4BI-rg-Mof" secondAttribute="bottom" constant="30" id="Muo-St-wRx"/>
                             <constraint firstItem="mfh-4h-pyk" firstAttribute="top" secondItem="h4O-su-wYr" secondAttribute="top" constant="75" id="Xdz-0Q-tLf"/>
                             <constraint firstItem="mfh-4h-pyk" firstAttribute="centerX" secondItem="798-n8-xdx" secondAttribute="centerX" id="i6w-xo-tc7"/>
-                            <constraint firstItem="dUV-dg-qKm" firstAttribute="leading" secondItem="h4O-su-wYr" secondAttribute="leading" constant="15" id="uju-ZP-rvV"/>
+                            <constraint firstItem="h4O-su-wYr" firstAttribute="bottom" secondItem="lzq-oV-MTs" secondAttribute="bottom" constant="50" id="juB-lW-yEP"/>
+                            <constraint firstItem="lzq-oV-MTs" firstAttribute="centerX" secondItem="798-n8-xdx" secondAttribute="centerX" id="na5-O9-yjQ"/>
                             <constraint firstItem="4BI-rg-Mof" firstAttribute="top" secondItem="mfh-4h-pyk" secondAttribute="bottom" constant="15" id="win-TD-AfG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h4O-su-wYr"/>
@@ -1364,6 +1372,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JqA-7w-KFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="nSD-bz-twK">
+                    <connections>
+                        <action selector="changeProfilePicture:" destination="Ptu-sI-M1k" id="XdM-QI-oNR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="28" y="2030"/>
         </scene>
@@ -1415,6 +1428,7 @@
         <image name="filter" width="31" height="31"/>
         <image name="group" width="31" height="31"/>
         <image name="message-2" width="31" height="30"/>
+        <image name="profile-default" width="225" height="225"/>
         <image name="user" width="31" height="31"/>
     </resources>
 </document>

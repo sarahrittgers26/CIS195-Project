@@ -74,4 +74,23 @@ struct FirebaseUsers {
         })
     }
     
+    static func saveImage(url: String, user_id: String) {
+        print("saving picture")
+        usersRef.child(user_id).child("profilePicture").setValue(url)
+    }
+    
+    static func getImage(user_id: String, callback: @escaping(String) -> ()) {
+        usersRef.child(user_id).observeSingleEvent(of: .value, with: { (snapshot) in
+            let values = snapshot.value as! [String: Any]
+
+            if (values["profilePicture"] != nil) {
+                let url = values["profilePicture"] as! String
+                print(url)
+                callback(url)
+            } else {
+                callback("")
+            }
+        })
+    }
+    
 }
