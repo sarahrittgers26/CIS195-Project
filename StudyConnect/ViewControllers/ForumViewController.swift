@@ -21,7 +21,15 @@ class ForumViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                                selector: #selector(ForumViewController.reloadQuestions),
                                                name: NSNotification.Name(rawValue: "addQuestionDismissed"),
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ForumViewController.reloadTable),
+                                               name: NSNotification.Name(rawValue: "filterDismissed"),
+                                               object: nil)
         reloadQuestions()
+    }
+    
+    @objc func reloadTable() {
+        self.tableView.reloadData()
     }
     
     @objc func reloadQuestions() {

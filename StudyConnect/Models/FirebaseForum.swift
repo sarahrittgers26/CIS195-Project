@@ -41,6 +41,30 @@ struct FirebaseForum {
         })
     }
     
+    static func filterQuestions(schoolFilter: String, tagFilter: String, callback: @escaping() -> ()) {
+        print("filtering")
+        allQuestions.removeAll()
+        forumRef.observeSingleEvent(of: .value, with: {(snapshot) in
+            for case let questionSnapshot as DataSnapshot in snapshot.children {
+                let id = questionSnapshot.key
+                let values = questionSnapshot.value as! NSDictionary
+                let q = values["question"] as! String
+                let school = values["school"] as! String
+                let tag = values["tag"] as! String
+                let date = values["date"] as! Double
+
+                if ((schoolFilter == school && tagFilter == tag) ||
+                    (schoolFilter == "All" && tagFilter == tag ||
+                    (schoolFilter == school && tagFilter == "All"))) {
+                    let question = Question(id: id, question: q, school: school, tag: tag, date: date)
+                    allQuestions.append(question)
+                }
+            }
+            FirebaseForum.allQuestions = allQuestions
+            callback()
+        })
+    }
+    
     // insert question
     static func addQuestion(question: String, school: String, tag: String, date: Double) {
         forumRef.childByAutoId().setValue(["question": question, "school": school, "tag": tag, "date": date])
