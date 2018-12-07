@@ -118,20 +118,37 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func sendMail(_ sender: Any) {
         if (MFMailComposeViewController.canSendMail()) {
-            let composeVC = MFMailComposeViewController()
-            composeVC.setToRecipients(group?.users)
-            composeVC.setSubject("\(group?.subject): \(group?.courseNum)")
-            self.present(composeVC, animated: true, completion: nil)
+            if let group = group {
+                // get users
+                FirebaseUsers.getSpecifiedUserEmails(toGet: group.users, callback: { (emails) in
+                    
+                    let composeVC = MFMailComposeViewController()
+                    composeVC.mailComposeDelegate = self
+                    composeVC.setToRecipients(emails)
+                    let subject = group.subject
+                    let num = group.courseNum
+                    composeVC.setSubject("\(subject) \(num)")
+                    self.present(composeVC, animated: true, completion: nil)
+                    
+                })
+                
+            }
         } else {
             let alert = Helpers.showErrorAlert(message: "Mail services are not available")
             self.present(alert, animated: true)
         }
     }
     
-    func mailComposeController(controller: MFMailComposeViewController,
-                               didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    
+    
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult, error: Error?) {
+        // Check the result or perform other tasks.
+        
+        // Dismiss the mail compose view controller.
         controller.dismiss(animated: true, completion: nil)
     }
+
     
     @IBAction func deleteGroup(_ sender: Any) {
         let alert = UIAlertController(title: "Are you sure?", message: "This cannot be undone", preferredStyle: .alert)
@@ -188,12 +205,6 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
     */
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

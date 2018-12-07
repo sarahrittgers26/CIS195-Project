@@ -19,8 +19,8 @@ class AddQuestionViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     var schoolData: [String] = []
     var tagData: [String] = []
-    var schoolPickerValue = ""
-    var tagPickerValue = ""
+    var schoolPickerValue = "College"
+    var tagPickerValue = "Requirements"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,14 +102,5 @@ class AddQuestionViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

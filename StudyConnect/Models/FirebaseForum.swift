@@ -41,6 +41,7 @@ struct FirebaseForum {
         })
     }
     
+    // get list of filtered questions
     static func filterQuestions(schoolFilter: String, tagFilter: String, callback: @escaping() -> ()) {
         allQuestions.removeAll()
         forumRef.observeSingleEvent(of: .value, with: {(snapshot) in
@@ -70,8 +71,8 @@ struct FirebaseForum {
     }
     
     // add a response
-    static func addResponse(questionId: String, text: String, date: Double, callback: @escaping() -> ()) {
-        forumRef.child(questionId).child("responses").childByAutoId().setValue(["text": text, "date": date]) { (err, ref) in
+    static func addResponse(questionId: String, text: String, date: Double, poster: String, callback: @escaping() -> ()) {
+        forumRef.child(questionId).child("responses").childByAutoId().setValue(["text": text, "date": date, "poster": poster]) { (err, ref) in
             callback()
         }
     }
@@ -86,8 +87,9 @@ struct FirebaseForum {
                 let values = questionSnapshot.value as! NSDictionary
                 let text = values["text"] as! String
                 let date = values["date"] as! Double
+                let name = values["poster"] as! String
                 
-                let response = Response(id: id, text: text, date: date)
+                let response = Response(id: id, text: text, date: date, poster: name)
                 
                 allResponses.append(response)
             }

@@ -17,6 +17,8 @@ class StudyGroupViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.hideKeyboardWhenTappedAround()
+        
         // detect when sign up modal closed
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -67,7 +69,6 @@ class StudyGroupViewController: UIViewController, UITableViewDelegate, UITableVi
             groupCell.classTitle.text = group.subject + " " + group.courseNum
             groupCell.professor.text = "Professor: \(group.professor)"
             groupCell.section.text = "Sections: \(group.sections)"
-            // TODO: change
             groupCell.members.text = "Members: \(group.users.count)"
             return groupCell
         }

@@ -68,6 +68,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             profilePicture.contentMode = .scaleAspectFill
             profilePicture.image = image
+            profilePicture.autoresizesSubviews = false
+            profilePicture.layer.cornerRadius = 0.5 * 150
             FBStorage.savePicture(picture: image, user_id: (user?.uid)!)
             picker.dismiss(animated: false, completion: nil)
         }
@@ -115,15 +117,5 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

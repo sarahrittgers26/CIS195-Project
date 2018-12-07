@@ -12,6 +12,7 @@ import FirebaseDatabase
 import FirebaseAuth
 
 struct FirebaseGroups {
+    
     private static let groupsRef = Database.database().reference(withPath: "groups")
     static var allGroups: [Group] = []
     
@@ -33,7 +34,6 @@ struct FirebaseGroups {
     static func getGroups(callback: @escaping() -> ()) {
         allGroups.removeAll()
         groupsRef.observeSingleEvent(of: .value, with: {(snapshot) in
-//            var allGroups: [Group] = []
             for case let groupSnapshot as DataSnapshot in snapshot.children {
                 let id = groupSnapshot.key
                 let values = groupSnapshot.value as! NSDictionary
@@ -113,10 +113,7 @@ struct FirebaseGroups {
                     }
                 }
             }
-        
-        
-            // TODO: get all events
-        
+
             let group = Group(id: groupID, subject: subject, courseNum: number, professor: professor, sections: sections, users: allUsers, events: [])
        
             callback(group)
@@ -124,6 +121,7 @@ struct FirebaseGroups {
 
     }
     
+    // search for groups with course numbers/subjects matching a term
     static func search(term: String, callback: @escaping() -> ()) {
         if (term.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
             return FirebaseGroups.getGroups(callback: callback)
@@ -197,6 +195,7 @@ struct FirebaseGroups {
         })
     }
     
+    // deletes a study group
     static func deleteGroup(groupID: String, callback: @escaping() -> ()) {
         groupsRef.child(groupID).removeValue()
         callback()
@@ -227,6 +226,7 @@ struct FirebaseGroups {
         })
     }
     
+    // confirm that the user is going to an event
     static func confirmUserForEvent(groupID: String, eventID: String, userID: String, callback: @escaping(Bool) -> ()) {
         groupsRef.child(groupID).child("events").child(eventID).child("confirmed").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {

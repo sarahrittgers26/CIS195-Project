@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ForumQuestionViewController: UIViewController {
+class ForumQuestionViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var questionLabel: UITextView!
     @IBOutlet weak var schoolLabel: UILabel!
@@ -16,14 +16,26 @@ class ForumQuestionViewController: UIViewController {
     @IBOutlet weak var responsesView: UIStackView!
     @IBOutlet weak var newMessage: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var keyboardHeightLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageView: UIStackView!
     
     var question: Question?
     var responses: [Response] = []
     
+    var frameView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
+        self.view.bringSubviewToFront(messageView)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         questionLabel.isEditable = false
-        newMessage.becomeFirstResponder()
+
         // Do any additional setup after loading the view.
         if let question = question {
             questionLabel.text = question.question
@@ -60,7 +72,7 @@ class ForumQuestionViewController: UIViewController {
             text.isScrollEnabled = false
             text.isEditable = false
             text.backgroundColor = UIColor(red: 69/255, green: 134/255, blue: 211/255, alpha: 1)
-            text.text = response.text
+            text.text = "\(response.text)\n- \(response.poster)"
             text.layer.cornerRadius = 15
             text.layer.masksToBounds = true
             text.font = UIFont(name: "Arial", size: 20)
@@ -69,16 +81,19 @@ class ForumQuestionViewController: UIViewController {
             
             self.responsesView.addArrangedSubview(text)
         }
-        scrollToEnd()
+//        scrollToEnd()
     }
     
-    func scrollToEnd() {
-        let contentViewHeight = scrollView.contentSize.height + responsesView.spacing + 50
-        let offsetY = contentViewHeight - scrollView.bounds.height
-        if (offsetY > 0) {
-        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: offsetY), animated: true)
-        }
-    }
+//    func scrollToEnd() {
+//        let contentViewHeight = scrollView.contentSize.height + responsesView.spacing
+//        let offsetY = contentViewHeight - scrollView.bounds.height
+//        print(Float(contentViewHeight))
+//        print(Float(scrollView.bounds.height))
+//        print(Float(offsetY))
+//        if (offsetY > 0) {
+//        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: offsetY), animated: true)
+//        }
+//    }
     
     @IBAction func post(_ sender: Any) {
         if (newMessage.text == "") {
@@ -88,21 +103,27 @@ class ForumQuestionViewController: UIViewController {
         }
         
         if let question = question, let response = newMessage.text {
-            FirebaseForum.addResponse(questionId: question.id, text: response, date: Date().timeIntervalSince1970, callback: {
-                self.newMessage.text = ""
-                self.reloadResponses()
-            })
+            let id = FirebaseUsers.getCurrentUser()?.uid
+            FirebaseUsers.getNameOfUser(userID: id!) { (name) in
+                FirebaseForum.addResponse(questionId: question.id, text: response, date: Date().timeIntervalSince1970, poster: name, callback: {
+                    self.newMessage.text = ""
+                    self.reloadResponses()
+                })
+            }
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Adjust keyboard height ////////////////////////////////
+    
+    @objc func keyboardWillShow(notification: NSNotification){
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.messageView.frame.origin.y -= (keyboardSize.height - 50)
+        }
     }
-    */
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.messageView.frame.origin.y += (keyboardSize.height - 50)
+        }
+    }
 
 }

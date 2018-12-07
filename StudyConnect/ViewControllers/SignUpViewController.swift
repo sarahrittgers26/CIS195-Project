@@ -48,13 +48,6 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        // must sign in with upenn email
-//        if (!email.text!.contains("upenn.edu")) {
-//            let alert = Helpers.showErrorAlert(message: "Must use UPenn email")
-//            self.present(alert, animated: true)
-//            return
-//        }
-        
         if let email = email.text, let password = password.text, let firstName = firstName.text, let lastName = lastName.text {
             // create new auth user
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in

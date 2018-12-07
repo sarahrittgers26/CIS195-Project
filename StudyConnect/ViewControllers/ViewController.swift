@@ -29,7 +29,6 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
                                                name: NSNotification.Name(rawValue: "modalIsDimissed"),
                                                object: nil)
         GIDSignIn.sharedInstance().uiDelegate = self
-//        GIDSignIn.sharedInstance().signIn()
         
         setupView()
     }

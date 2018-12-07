@@ -13,5 +13,6 @@ struct Response {
     let id: String
     let text: String
     let date: Double
+    let poster: String
     
 }
