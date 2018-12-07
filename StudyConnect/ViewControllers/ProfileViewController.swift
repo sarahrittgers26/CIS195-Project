@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
+import GoogleSignIn
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -111,6 +113,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func logout(_ sender: Any) {
         do {
+            GIDSignIn.sharedInstance()?.signOut()
             try Auth.auth().signOut()
             self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
         } catch {
