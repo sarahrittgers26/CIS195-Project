@@ -61,7 +61,9 @@ class ForumQuestionViewController: UIViewController {
             text.isEditable = false
             text.backgroundColor = UIColor(red: 69/255, green: 134/255, blue: 211/255, alpha: 1)
             text.text = response.text
-            text.font = UIFont(name: "Arial", size: 17)
+            text.layer.cornerRadius = 15
+            text.layer.masksToBounds = true
+            text.font = UIFont(name: "Arial", size: 20)
         
             text.textColor = UIColor(red: 208/255, green: 213/255, blue: 217/255, alpha: 1)
             

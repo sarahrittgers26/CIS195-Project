@@ -14,6 +14,8 @@ class AddQuestionViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var question: UITextView!
     @IBOutlet weak var school: UIPickerView!
     @IBOutlet weak var tag: UIPickerView!
+    @IBOutlet weak var cancel: UIButton!
+    @IBOutlet weak var post: UIButton!
     
     var schoolData: [String] = []
     var tagData: [String] = []
@@ -32,6 +34,14 @@ class AddQuestionViewController: UIViewController, UIPickerViewDelegate, UIPicke
         tag.dataSource = self
         tag.delegate = self
         
+        setupView()
+    }
+    
+    func setupView() {
+        question.layer.cornerRadius = 15
+        question.layer.masksToBounds = true
+        cancel.layer.cornerRadius = 10
+        post.layer.cornerRadius = 10
     }
     
     override func viewDidAppear(_ animated: Bool) {

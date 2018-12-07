@@ -12,6 +12,8 @@ class ForumTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var question: UILabel!
+    @IBOutlet weak var school: UILabel!
+    @IBOutlet weak var tagLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

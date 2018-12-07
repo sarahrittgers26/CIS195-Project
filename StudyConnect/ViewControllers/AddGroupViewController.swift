@@ -14,10 +14,37 @@ class AddGroupViewController: UIViewController {
     @IBOutlet weak var courseNumber: UITextField!
     @IBOutlet weak var professor: UITextField!
     @IBOutlet weak var sections: UITextField!
+    @IBOutlet weak var add: UIButton!
+    @IBOutlet weak var cancel: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupView()
+    }
+    
+    func setupView() {
+        professor.layer.cornerRadius = 15
+        professor.layer.masksToBounds = true
+        sections.layer.cornerRadius = 15
+        sections.layer.masksToBounds = true
+        subjectCode.layer.cornerRadius = 15
+        subjectCode.layer.masksToBounds = true
+        courseNumber.layer.cornerRadius = 15
+        courseNumber.layer.masksToBounds = true
+        cancel.layer.cornerRadius = 10
+        add.layer.cornerRadius = 10
+        
+        professor.layer.borderWidth = 1
+        professor.layer.borderColor = UIColor.lightGray.cgColor
+        sections.layer.borderWidth = 1
+        sections.layer.borderColor = UIColor.lightGray.cgColor
+        subjectCode.layer.borderWidth = 1
+        subjectCode.layer.borderColor = UIColor.lightGray.cgColor
+        courseNumber.layer.borderWidth = 1
+        courseNumber.layer.borderColor = UIColor.lightGray.cgColor
     }
     
     @IBAction func addClass(_ sender: Any) {

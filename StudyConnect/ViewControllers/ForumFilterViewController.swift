@@ -12,6 +12,8 @@ class ForumFilterViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBOutlet weak var schoolPicker: UIPickerView!
     @IBOutlet weak var tagPicker: UIPickerView!
+    @IBOutlet weak var cancel: UIButton!
+    @IBOutlet weak var filter: UIButton!
     
     var schoolData: [String] = []
     var tagData: [String] = []
@@ -29,6 +31,13 @@ class ForumFilterViewController: UIViewController, UIPickerViewDelegate, UIPicke
         schoolPicker.delegate = self
         tagPicker.dataSource = self
         tagPicker.delegate = self
+        
+        setupView()
+    }
+    
+    func setupView() {
+        cancel.layer.cornerRadius = 10
+        filter.layer.cornerRadius = 10
     }
     
     @IBAction func cancel(_ sender: Any) {

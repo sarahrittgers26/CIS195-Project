@@ -51,9 +51,15 @@ class ForumViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let forumCell = cell as? ForumTableViewCell {
             let question: Question = FirebaseForum.getQuestion(index: indexPath.row)
             forumCell.question.text = question.question
+            forumCell.school.text = "School: \(question.school)"
+            forumCell.tagLabel.text = "Tag: \(question.tag)"
             return forumCell
         }
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     /*

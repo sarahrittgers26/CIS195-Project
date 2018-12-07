@@ -14,6 +14,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var email: UILabel!
+    @IBOutlet weak var logout: UIButton!
+    
+    
     var user: User?
     
     let libraryPicker = UIImagePickerController()
@@ -24,6 +27,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupView()
         user = Auth.auth().currentUser
         
         FirebaseUsers.getSpecifiedUsers(toGet: [(user?.uid)!], callback: { (users) in
@@ -45,6 +49,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         albumPicker.delegate = self
         cameraPicker.delegate = self
         
+    }
+    
+    func setupView() {
+        logout.layer.cornerRadius = 10
     }
     
     @IBAction func changeProfilePicture(_ sender: Any) {

@@ -15,6 +15,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
 
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var signup: UIButton!
+    @IBOutlet weak var login: UIButton!
+    @IBOutlet weak var googleLogin: GIDSignInButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +29,18 @@ class ViewController: UIViewController, GIDSignInUIDelegate {
                                                name: NSNotification.Name(rawValue: "modalIsDimissed"),
                                                object: nil)
         GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signIn()
-       
+//        GIDSignIn.sharedInstance().signIn()
+        
+        setupView()
+    }
+    
+    func setupView() {
+        email.layer.cornerRadius = 15
+        email.layer.masksToBounds = true
+        password.layer.cornerRadius = 15
+        password.layer.masksToBounds = true
+        signup.layer.cornerRadius = 10
+        login.layer.cornerRadius = 10
     }
     
     override func viewDidAppear(_ animated: Bool) {

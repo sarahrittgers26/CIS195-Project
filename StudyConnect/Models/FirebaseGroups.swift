@@ -162,8 +162,9 @@ struct FirebaseGroups {
     }
     
     // add a calendar event to the group with id groupId
-    static func addEvent(groupId: String, title: String, date: String, time: String, address: String) {
-        groupsRef.child(groupId).child("events").childByAutoId().setValue(["title": title, "date": date, "time": time, "address": address])
+    static func addEvent(groupId: String, title: String, start: Int, end: Int, address: String) {
+        let eventRef = groupsRef.child(groupId).child("events").childByAutoId()
+        eventRef.setValue(["title": title, "start": start, "end": end, "address": address])
     }
     
     // get calendar events associated with the group
@@ -174,8 +175,8 @@ struct FirebaseGroups {
                 let id = groupSnapshot.key
                 let values = groupSnapshot.value as! NSDictionary
                 let title = values["title"] as! String
-                let date = values["date"] as! String
-                let time = values["time"] as! String
+                let start = values["start"] as! Int
+                let end = values["end"] as! Int
                 let address = values["address"] as! String
                 
                 // get all confirmed users
@@ -188,7 +189,7 @@ struct FirebaseGroups {
                     }
                 }
                 
-                let event = Events(id: id, title: title, date: date, time: time, address: address, confirmedUsers: allUsers)
+                let event = Events(id: id, title: title, start: Date(timeIntervalSince1970: Double(start)), end: Date(timeIntervalSince1970: Double(end)), address: address, confirmedUsers: allUsers)
 
                 allEvents.append(event)
             }
@@ -227,7 +228,7 @@ struct FirebaseGroups {
     }
     
     static func confirmUserForEvent(groupID: String, eventID: String, userID: String, callback: @escaping(Bool) -> ()) {
-        groupsRef.child(groupID).child("events").child(eventID).child("confirmed").observeSingleEvent(of: .value, with: { (snapshot) in
+        groupsRef.child(groupID).child("events").child(eventID).child("confirmed").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 callback(false)
             } else {
@@ -239,8 +240,13 @@ struct FirebaseGroups {
     
     // delete an event
     static func deleteEvent(groupID: String, eventID: String, callback: @escaping() -> ()) {
-        groupsRef.child(groupID).child("events").child(eventID).removeValue()
-        callback()
+        groupsRef.child(groupID).child("events").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChild(eventID) {
+                groupsRef.child(groupID).child("events").child(eventID).removeValue()
+            }
+            callback()
+        })
+        
     }
     
     // get a specific event from a group
@@ -248,8 +254,8 @@ struct FirebaseGroups {
         groupsRef.child(groupID).child("events").child(eventID).observeSingleEvent(of: .value, with: {(snapshot) in
             let values = snapshot.value as! NSDictionary
             let address = values["address"] as! String
-            let date = values["date"] as! String
-            let time = values["time"] as! String
+            let start = values["start"] as! Int
+            let end = values["end"] as! Int
             let title = values["title"] as! String
             
             // get all confirmed users of the event
@@ -262,7 +268,7 @@ struct FirebaseGroups {
                 }
             }
             
-            let event = Events(id: eventID, title: title, date: date, time: time, address: address, confirmedUsers: confirmedUsers)
+            let event = Events(id: eventID, title: title, start: Date(timeIntervalSince1970: Double(start)), end: Date(timeIntervalSince1970: Double(end)), address: address, confirmedUsers: confirmedUsers)
             callback(event)
         })
     }

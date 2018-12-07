@@ -18,10 +18,14 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var newEvent: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelStackView: UIStackView!
+    @IBOutlet weak var join: UIButton!
+    @IBOutlet weak var leave: UIButton!
+    @IBOutlet weak var delete: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         NotificationCenter.default.addObserver(self,
@@ -36,6 +40,12 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         renderMembers()
         if let group = group {
             self.title = "\(group.subject) \(group.courseNum)" }
+    }
+    
+    func setupView() {
+        join.layer.cornerRadius = 10
+        leave.layer.cornerRadius = 10
+        delete.layer.cornerRadius = 10
     }
     
     func reloadGroup() {
@@ -59,6 +69,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             for user in users {
                 let label = UILabel()
                 label.text = "\(user.firstName) \(user.lastName)"
+                label.font = UIFont(name: "Arial", size: 18)
                 label.textColor = UIColor(red: 69/255, green: 134/255, blue: 211/255, alpha: 1)
                 self.labelStackView.addArrangedSubview(label)
                 
@@ -153,11 +164,17 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let eventCell = cell as? EventTableViewCell {
             let event: Events = self.events[indexPath.row]
             eventCell.title.text = event.title
-            eventCell.date.text = "\(event.date) \(event.time)"
+            let start = Helpers.formatDateAsString(date: event.start)
+            let end = Helpers.formatDateAsString(date: event.end)
+            eventCell.date.text = "\(start) - \(end)"
             eventCell.location.text = event.address
             return eventCell
         }
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func performSegueToReturnBack()  {

@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import GoogleAPIClientForREST
+import EventKit
 
 
 class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
@@ -18,6 +19,9 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     @IBOutlet weak var whereLabel: UILabel!
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var confirmedUsers: UIStackView!
+    @IBOutlet weak var confirm: UIButton!
+    @IBOutlet weak var delete: UIButton!
+    @IBOutlet weak var addToCalendar: UIButton!
     
     var group: Group?
     var event: Events?
@@ -28,11 +32,18 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupView()
         setupLocationManager()
         map.delegate = self
         map.showsUserLocation = true
         updateView()
         renderConfirmedUsers()
+    }
+    
+    func setupView() {
+        confirm.layer.cornerRadius = 10
+        delete.layer.cornerRadius = 10
+        addToCalendar.layer.cornerRadius = 10
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,8 +101,12 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     func updateView() {
         if let event = event {
-            whenLabel.text = "Time: \(event.date) \(event.time)"
+            let start = Helpers.formatDateAsString(date: event.start)
+            let end = Helpers.formatDateAsString(date: event.end)
+            whenLabel.text = "Time: \(start) - \(end)"
             whereLabel.text = "Location: \(event.address)"
+            Helpers.sizeLabelToFit(label: whereLabel)
+            Helpers.sizeLabelToFit(label: whenLabel)
             self.title = event.title
         }
     }
@@ -108,6 +123,18 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
                 self.present(alert, animated: true)
             }
         })
+    }
+    
+    @IBAction func addCalendarEvent(_ sender: Any) {
+        if let event = event {
+            Helpers.addCalendarEvent(title: event.title, startDate: event.start, endDate: event.end, completion: {(success, error) in
+                if (error != nil) {
+                    let alert = Helpers.showErrorAlert(message: "Unable to add to calendar")
+                    self.present(alert, animated: true)
+                }
+            })
+        }
+        
     }
     
     @IBAction func deleteEvent(_ sender: Any) {
@@ -156,6 +183,7 @@ class ShowEventViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             for user in users {
                 let label = UILabel()
                 label.text = "\(user.firstName) \(user.lastName)"
+                label.font = UIFont(name: "Arial", size: 18)
                 label.textColor = UIColor(red: 69/255, green: 134/255, blue: 211/255, alpha: 1)
                 self.confirmedUsers.addArrangedSubview(label)
             }

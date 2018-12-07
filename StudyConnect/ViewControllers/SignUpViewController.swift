@@ -16,11 +16,27 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var join: UIButton!
+    @IBOutlet weak var cancel: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupView()
+    }
+    
+    func setupView() {
+        firstName.layer.cornerRadius = 15
+        firstName.layer.masksToBounds = true
+        lastName.layer.cornerRadius = 15
+        lastName.layer.masksToBounds = true
+        email.layer.cornerRadius = 15
+        email.layer.masksToBounds = true
+        password.layer.cornerRadius = 15
+        password.layer.masksToBounds = true
+        join.layer.cornerRadius = 10
+        cancel.layer.cornerRadius = 10
     }
     
     // sign up button clicked
@@ -33,16 +49,17 @@ class SignUpViewController: UIViewController {
         }
         
         // must sign in with upenn email
-        if (!email.text!.contains("upenn.edu")) {
-            let alert = Helpers.showErrorAlert(message: "Must use UPenn email")
-            self.present(alert, animated: true)
-            return
-        }
+//        if (!email.text!.contains("upenn.edu")) {
+//            let alert = Helpers.showErrorAlert(message: "Must use UPenn email")
+//            self.present(alert, animated: true)
+//            return
+//        }
         
         if let email = email.text, let password = password.text, let firstName = firstName.text, let lastName = lastName.text {
             // create new auth user
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 if let user = authResult?.user {
+
                     // add user data to firebase
                     FirebaseUsers.addUser(userID: user.uid, firstName: firstName, lastName: lastName, email: email)
                     // dismiss modal and let parent vc know that sign up was successful

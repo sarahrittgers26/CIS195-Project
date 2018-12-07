@@ -11,10 +11,14 @@ import UIKit
 class AddEventViewController: UIViewController {
 
     @IBOutlet weak var eventTitle: UITextField!
-    @IBOutlet weak var date: UITextField!
-    @IBOutlet weak var time: UITextField!
+    @IBOutlet weak var startDate: UIDatePicker!
+    @IBOutlet weak var endDate: UIDatePicker!
     @IBOutlet weak var address: UITextField!
+    @IBOutlet weak var cancel: UIButton!
+    @IBOutlet weak var create: UIButton!
     
+    var start =  0
+    var end = 0
     
     var group: Group?
     
@@ -22,10 +26,31 @@ class AddEventViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(AddEventViewController.changeAddress),
-                                               name: NSNotification.Name(rawValue: "addressSelected"),
-                                               object: nil)
+        setupView()
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(AddEventViewController.changeAddress),
+                                           name: NSNotification.Name(rawValue: "addressSelected"),
+                                           object: nil)
+    }
+    
+    func setupView() {
+        eventTitle.layer.cornerRadius = 15
+        eventTitle.layer.masksToBounds = true
+        address.layer.cornerRadius = 15
+        address.layer.masksToBounds = true
+        cancel.layer.cornerRadius = 10
+        create.layer.cornerRadius = 10
+        
+        eventTitle.layer.borderWidth = 1
+        eventTitle.layer.borderColor = UIColor.lightGray.cgColor
+        address.layer.borderWidth = 1
+        address.layer.borderColor = UIColor.lightGray.cgColor
+        
+        startDate.minuteInterval = 15
+        endDate.minuteInterval = 15
+        
+        start = Int(startDate.date.timeIntervalSince1970)
+        end = Int(endDate.date.timeIntervalSince1970)
     }
     
     // change the address field
@@ -34,14 +59,23 @@ class AddEventViewController: UIViewController {
         address.text = passedData["address"]
     }
     
+    @IBAction func startChanged(_ sender: UIDatePicker) {
+        start = Int(sender.date.timeIntervalSince1970)
+    }
+    
+    
+    @IBAction func endChanged(_ sender: UIDatePicker) {
+        end = Int(sender.date.timeIntervalSince1970)
+    }
+    
     @IBAction func createEvent(_ sender: Any) {
-        if let titleStr = eventTitle.text, let dateStr = date.text, let timeStr = time.text, let addressStr = address.text, let group = group {
+        if let titleStr = eventTitle.text, let addressStr = address.text, let group = group {
         
-            if titleStr == "" || dateStr == "" || timeStr == "" || addressStr == "" {
+            if titleStr == "" || addressStr == "" || start == 0 || end == 0 {
                 let alert = Helpers.showErrorAlert(message: "Fields cannot be empty")
                 self.present(alert, animated: true)
             } else {
-                FirebaseGroups.addEvent(groupId: group.id, title: titleStr, date: dateStr, time: timeStr, address: addressStr)
+                FirebaseGroups.addEvent(groupId: group.id, title: titleStr, start: start, end: end, address: addressStr)
                 self.dismiss(animated: true, completion: {NotificationCenter.default.post(name: NSNotification.Name(rawValue:"addEventDismissed"), object: nil)})
             }
         }
