@@ -53,7 +53,7 @@ struct FirebaseForum {
                 let tag = values["tag"] as! String
                 let date = values["date"] as! Double
 
-                if ((schoolFilter == school && tagFilter == tag) ||
+                if ((schoolFilter == school && tagFilter == tag) || (schoolFilter == "All" && tagFilter == "All") ||
                     (schoolFilter == "All" && tagFilter == tag ||
                     (schoolFilter == school && tagFilter == "All"))) {
                     let question = Question(id: id, question: q, school: school, tag: tag, date: date)

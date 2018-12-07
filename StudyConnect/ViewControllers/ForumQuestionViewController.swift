@@ -23,6 +23,7 @@ class ForumQuestionViewController: UIViewController, UITextViewDelegate {
     var responses: [Response] = []
     
     var frameView: UIView!
+    var messageViewY: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,12 +118,15 @@ class ForumQuestionViewController: UIViewController, UITextViewDelegate {
     
     @objc func keyboardWillShow(notification: NSNotification){
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.messageView.frame.origin.y -= (keyboardSize.height - 50)
+            self.messageViewY = self.messageView.frame.origin.y
+            self.messageView.frame.origin.y -= (keyboardSize.height - 30)
+            
         }
     }
     @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.messageView.frame.origin.y += (keyboardSize.height - 50)
+//            self.messageView.frame.origin.y += (keyboardSize.height - 30)
+            self.messageView.frame.origin.y = self.messageViewY!
         }
     }
 

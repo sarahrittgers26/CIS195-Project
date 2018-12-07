@@ -26,6 +26,7 @@ class AddQuestionViewController: UIViewController, UIPickerViewDelegate, UIPicke
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.hideKeyboardWhenTappedAround()
         schoolData = ["College", "Engineering", "Nursing", "Wharton"]
         tagData = ["Requirements", "Registration", "Class Recommendations", "Internships", "Jobs", "Other"]
         
